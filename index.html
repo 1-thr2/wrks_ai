@@ -1027,16 +1027,16 @@
               <h4 class="chart-title">국내 마케팅 대행사 AI 도입 현황</h4>
               <div class="bar-chart">
                 <div class="bar" style="height: 30%;">
-                  <div class="bar-value" style="color: white;">30%</div>
-                  <div class="bar-category" style="color: white;">2023년</div>
+                  <div class="bar-value">30%</div>
+                  <div class="bar-category">2023년</div>
                 </div>
                 <div class="bar" style="height: 66%;">
-                  <div class="bar-value" style="color: white;">66%</div>
-                  <div class="bar-category" style="color: white;">2024년</div>
+                  <div class="bar-value">66%</div>
+                  <div class="bar-category">2024년</div>
                 </div>
                 <div class="bar" style="height: 82%; background: var(--secondary);">
-                  <div class="bar-value" style="color: white;">82%</div>
-                  <div class="bar-category" style="color: white;">2025년(현재)</div>
+                  <div class="bar-value">82%</div>
+                  <div class="bar-category">2025년(현재)</div>
                 </div>
               </div>
             </div>
@@ -1317,20 +1317,20 @@
               <h4 class="chart-title">주요 업무 시간 절감 효과</h4>
               <div class="bar-chart">
                 <div class="bar" style="height: 65%; background: var(--success);">
-                  <div class="bar-value" style="color: white;">65%</div>
-                  <div class="bar-category" style="color: white;">콘텐츠 기획</div>
+                  <div class="bar-value">65%</div>
+                  <div class="bar-category">콘텐츠 기획</div>
                 </div>
                 <div class="bar" style="height: 75%; background: var(--success);">
-                  <div class="bar-value" style="color: white;">75%</div>
-                  <div class="bar-category" style="color: white;">인터뷰 정리</div>
+                  <div class="bar-value">75%</div>
+                  <div class="bar-category">인터뷰 정리</div>
                 </div>
                 <div class="bar" style="height: 70%; background: var(--success);">
-                  <div class="bar-value" style="color: white;">70%</div>
-                  <div class="bar-category" style="color: white;">보고서 작성</div>
+                  <div class="bar-value">70%</div>
+                  <div class="bar-category">보고서 작성</div>
                 </div>
                 <div class="bar" style="height: 50%; background: var(--success);">
-                  <div class="bar-value" style="color: white;">50%</div>
-                  <div class="bar-category" style="color: white;">데이터 분석</div>
+                  <div class="bar-value">50%</div>
+                  <div class="bar-category">데이터 분석</div>
                 </div>
               </div>
             </div>
@@ -1452,7 +1452,7 @@
                 <div class="keypoint-title">시간 절감</div>
                 <div class="keypoint-description">
                   직원당 월 평균 12시간 이상 절약 (파일럿 실측 데이터 기준)<br>
-                  <strong>예시:</strong> 주 3시간(월 12시간) 절감 × 시간당 인건비 25,000원 = 월 30만원/인 가치<br>
+                  <strong>예시:</strong> 주 3시간(월 12시간) 절감 × 시간당 인건비 15,000원 = 월 18만원/인 가치<br>
                   <strong>예시:</strong> 180명 × 월 12시간 = 월 2,160시간(약 270일) 업무시간 확보 효과
                 </div>
               </div>
@@ -1463,8 +1463,8 @@
                 <div class="keypoint-title">투자 회수</div>
                 <div class="keypoint-description">
                   적정 사용량 관리 시 약 4개월 내 투자 회수 가능<br>
-                  <strong>예시:</strong> 월 투자 200만원 vs 시간 가치 환산 5,400만원 = 월 5,200만원 순이익<br>
-                  <strong>예시:</strong> 초기 3개월 투자(600만원) → 4개월차부터 월 5,200만원 수준 순이익
+                  <strong>예시:</strong> 월 투자 200만원 vs 시간 가치 환산 3,240만원 = 월 3,040만원 순이익<br>
+                  <strong>예시:</strong> 초기 3개월 투자(600만원) → 4개월차부터 월 3,040만원 수준 순이익
                 </div>
               </div>
             </div>
@@ -1662,10 +1662,15 @@
       document.getElementById(tabId).classList.add('active', slideDirection);
       document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
       
-      // 탭 컨텐츠가 보이게 스크롤
-      const tabsElement = document.querySelector('.tabs');
-      const tabsOffset = tabsElement.offsetTop + tabsElement.offsetHeight;
-      window.scrollTo({ top: tabsOffset, behavior: 'smooth' });
+      // 탭 컨텐츠의 상단으로 스크롤 이동
+      setTimeout(() => {
+        const tabsOffset = document.querySelector('.tabs').getBoundingClientRect().top + window.scrollY + 
+                           document.querySelector('.tabs').getBoundingClientRect().height;
+        window.scrollTo({
+          top: tabsOffset,
+          behavior: 'smooth'
+        });
+      }, 100);
       
       // 현재 탭 업데이트
       currentTab = tabId;
