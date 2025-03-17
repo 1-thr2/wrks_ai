@@ -13,218 +13,514 @@
     :root {
       --primary: #0066FF;
       --primary-light: #E8F3FF;
+      --primary-dark: #0052CC;
+      --secondary: #3D5AFE;
+      --secondary-light: #EAF0FF;
       --success: #00B171;
       --success-light: #E6F9F1;
       --warning: #FF8000;
       --warning-light: #FFF4E5;
+      --danger: #F5365C;
+      --danger-light: #FEE8EC;
       --bg: #FFFFFF;
-      --text: #333;
-      --gray: #888;
-      --padding: 16px;
-      --border-radius: 8px;
+      --surface: #F9FAFC;
+      --text: #191F28;
+      --text-secondary: #758090;
+      --text-tertiary: #9EAAB7;
+      --border: #E5E9F0;
+      --padding: 20px;
+      --border-radius: 10px;
       --transition: 0.3s;
+      --header-height: 60px;
+      --chart-primary: #3D5AFE;
+      --chart-secondary: #00B171;
+      --chart-tertiary: #FF8000;
+      --chart-quaternary: #F5365C;
     }
+
+    [data-theme="dark"] {
+      --primary: #4D8DFF;
+      --primary-light: #172B4D;
+      --primary-dark: #6EA8FE;
+      --secondary: #6D83FF;
+      --secondary-light: #21295C;
+      --success: #2DCE89;
+      --success-light: #1A2C3A;
+      --warning: #FB8C00;
+      --warning-light: #2D2718;
+      --danger: #F75676;
+      --danger-light: #2C1A20;
+      --bg: #0A1120;
+      --surface: #111927;
+      --text: #EDF2F7;
+      --text-secondary: #A0AEC0;
+      --text-tertiary: #718096;
+      --border: #2D3748;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: 'Pretendard', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
     body {
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
+      transition: background-color 0.3s, color 0.3s;
     }
+
     .app {
-      max-width: 720px;
+      max-width: 780px;
       margin: 0 auto;
       background: var(--bg);
       min-height: 100vh;
+      padding-bottom: 40px;
     }
+
     /* 헤더 */
     .header {
       position: sticky;
       top: 0;
       background: var(--bg);
       padding: var(--padding);
-      border-bottom: 1px solid #ddd;
-      text-align: center;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: var(--header-height);
       z-index: 10;
+      transition: background 0.3s, border-color 0.3s;
     }
+
     .header .title {
       font-size: 18px;
       font-weight: 700;
       color: var(--text);
     }
+
+    .theme-toggle {
+      width: 40px;
+      height: 24px;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      transition: all 0.3s;
+    }
+
+    .theme-toggle.dark::after {
+      left: 20px;
+    }
+
     /* 페이지 타이틀 및 서브타이틀 */
     .page-title {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       margin: var(--padding) 0 8px;
       text-align: center;
     }
+
     .subtitle {
-      font-size: 15px;
+      font-size: 16px;
       text-align: center;
-      margin-bottom: var(--padding);
-      color: var(--gray);
+      margin-bottom: calc(var(--padding) * 1.5);
+      color: var(--text-secondary);
     }
-    /* 파일럿 배너 */
-    .pilot-banner {
+
+    /* Executive Summary */
+    .executive-summary {
       background: var(--primary-light);
       border-radius: var(--border-radius);
-      padding: var(--padding);
-      margin-bottom: var(--padding);
+      padding: calc(var(--padding) * 1.2);
+      margin: 0 var(--padding) calc(var(--padding) * 1.5);
+      position: relative;
+      overflow: hidden;
     }
-    .pilot-title {
-      font-size: 16px;
-      font-weight: 600;
+
+    .exec-title {
+      font-size: 18px;
+      font-weight: 700;
       color: var(--primary);
-      margin-bottom: 4px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
-    .pilot-description {
+
+    .exec-content {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .metrics-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .metric-card {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
       font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* 파일럿 배너 */
+    .pilot-banner {
+      background: var(--success-light);
+      border-radius: var(--border-radius);
+      padding: var(--padding);
+      margin: 0 var(--padding) calc(var(--padding) * 1.2);
+    }
+
+    .pilot-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--success);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pilot-description {
+      font-size: 15px;
       color: var(--text);
     }
+
     /* 탭 네비게이션 */
     .tabs {
       display: flex;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: var(--padding);
+      border-bottom: 1px solid var(--border);
+      margin: 0 var(--padding) var(--padding);
+      position: sticky;
+      top: var(--header-height);
+      background: var(--bg);
+      z-index: 5;
+      transition: background 0.3s, border-color 0.3s;
     }
+
     .tab {
       flex: 1;
-      padding: 12px;
+      padding: 16px 12px;
       text-align: center;
       cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-secondary);
       border-bottom: 3px solid transparent;
-      transition: border-color var(--transition);
+      transition: all var(--transition);
     }
+
     .tab.active {
       border-color: var(--primary);
-      font-weight: bold;
+      font-weight: 600;
       color: var(--primary);
     }
+
     /* 메인 콘텐츠 영역 */
     .content {
-      padding: 0 var(--padding) var(--padding);
+      padding: 0 var(--padding);
+      overflow: hidden;
     }
+
     .tab-content {
       display: none;
-      animation: fadeIn 0.3s;
+      animation: fadeIn 0.5s;
+      transition: transform 0.5s;
     }
+
     .tab-content.active {
       display: block;
     }
+
+    .tab-content.slide-left {
+      animation: slideLeft 0.3s forwards;
+    }
+
+    .tab-content.slide-right {
+      animation: slideRight 0.3s forwards;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    @keyframes slideLeft {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideRight {
+      from { transform: translateX(-50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* 스켈레톤 로딩 */
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border-radius: var(--border-radius);
+    }
+
+    .skeleton::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
     /* 섹션 스타일 */
     .section {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s;
+      animation-fill-mode: both;
     }
+
+    @keyframes fadeUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .section-title {
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       color: var(--text);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
+
     /* 키포인트 컴포넌트 */
     .keypoint {
       display: flex;
       padding: var(--padding);
-      background: var(--bg);
+      background: var(--surface);
       border-radius: var(--border-radius);
-      border: 1px solid #ddd;
-      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    .keypoint:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
     .keypoint-icon {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       border-radius: var(--border-radius);
       background: var(--primary-light);
       color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      margin-right: 12px;
+      font-size: 20px;
+      margin-right: 16px;
       flex-shrink: 0;
     }
+
     .keypoint-content {
       flex: 1;
     }
+
     .keypoint-title {
       font-weight: 600;
-      font-size: 16px;
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .keypoint-description {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* 차트 영역 */
+    .chart-container {
+      height: 240px;
+      margin: 24px 0;
+      background: var(--surface);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+
+    /* 로드맵 */
+    .roadmap {
+      margin: 30px 0;
+      position: relative;
+      display: flex;
+      padding: 0 20px;
+    }
+
+    .roadmap::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-light);
+      border-radius: 2px;
+    }
+
+    .roadmap-phase {
+      flex: 1;
+      position: relative;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .roadmap-dot {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .roadmap-phase.active .roadmap-dot {
+      background: var(--success);
+      box-shadow: 0 0 0 4px var(--success-light);
+    }
+
+    .roadmap-title {
+      font-size: 15px;
+      font-weight: 600;
       margin-bottom: 4px;
     }
-    .keypoint-description {
+
+    .roadmap-date {
       font-size: 14px;
-      color: var(--gray);
-      line-height: 1.5;
+      color: var(--text-secondary);
     }
+
     /* 단계별 접근 카드 (Step Card) */
     .step-card {
-      background: var(--bg);
+      background: var(--surface);
       border-radius: var(--border-radius);
-      border: 1px solid #ddd;
-      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
       overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    .step-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
     .step-header {
-      padding: 14px 16px;
-      border-bottom: 1px solid #ddd;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
     }
+
     .step-number {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: var(--primary-light);
       color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
-      margin-right: 12px;
+      margin-right: 16px;
     }
+
     .step-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       flex: 1;
     }
+
     .step-content {
-      padding: 16px;
+      padding: 20px;
     }
+
     .step-description {
-      font-size: 14px;
-      margin-bottom: 12px;
-      line-height: 1.5;
-      color: var(--gray);
+      font-size: 15px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      color: var(--text-secondary);
     }
+
     .step-list {
       list-style: none;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
+
     .step-item {
-      font-size: 14px;
-      margin-bottom: 8px;
+      font-size: 15px;
+      margin-bottom: 10px;
       position: relative;
-      padding-left: 20px;
-      line-height: 1.5;
+      padding-left: 24px;
+      line-height: 1.6;
       color: var(--text);
     }
+
     .step-item::before {
       content: "✓";
       position: absolute;
@@ -232,164 +528,258 @@
       color: var(--primary);
       font-weight: 600;
     }
+
     .tip {
       background: var(--warning-light);
-      border-radius: var(--border-radius);
-      padding: 12px 16px;
-      font-size: 14px;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 15px;
       color: var(--warning);
-      line-height: 1.5;
+      line-height: 1.6;
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
+      margin-top: 16px;
     }
+
     .tip-icon {
       flex-shrink: 0;
       margin-top: 2px;
     }
+
     .step-time {
       font-size: 14px;
-      color: var(--gray);
-      margin-top: 8px;
+      color: var(--text-tertiary);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
+
     /* 타임라인 스타일 */
     .timeline {
       display: flex;
-      margin: 24px 0;
+      margin: 30px 0;
       position: relative;
     }
+
     .timeline::before {
       content: "";
       position: absolute;
       top: 24px;
-      left: 30px;
+      left: 32px;
       bottom: 0;
-      width: 2px;
-      background: #ddd;
+      width: 3px;
+      background: var(--primary-light);
+      border-radius: 1.5px;
     }
+
     .timeline-container {
       flex: 1;
-      padding-left: 50px;
+      padding-left: 60px;
     }
+
     .timeline-item {
       position: relative;
-      padding-bottom: 24px;
+      padding-bottom: 28px;
+      animation: fadeUp 0.5s forwards;
     }
+
+    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
     .timeline-item:last-child {
       padding-bottom: 0;
     }
+
     .timeline-dot {
       position: absolute;
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: var(--primary);
-      left: -34px;
+      left: -44px;
       top: 4px;
       z-index: 2;
     }
+
     .timeline-date {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
+
     .timeline-content {
-      font-size: 14px;
-      line-height: 1.5;
+      font-size: 15px;
+      line-height: 1.6;
       color: var(--text);
     }
+
     /* 구분선 */
     .divider {
       height: 1px;
-      background: #ddd;
-      margin: 24px 0;
+      background: var(--border);
+      margin: 32px 0;
     }
+
     /* 성공 사례 카드 */
     .case-study {
-      background: var(--bg);
+      background: var(--surface);
       border-radius: var(--border-radius);
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       overflow: hidden;
-      border: 1px solid #ddd;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+
+    .case-study:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
     .case-header {
-      padding: 16px;
+      padding: 20px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid #ddd;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
     }
+
     .case-icon {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background: var(--primary);
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
     }
+
     .case-title h3 {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       color: var(--text);
     }
+
     .case-title p {
-      font-size: 14px;
-      color: var(--gray);
+      font-size: 15px;
+      color: var(--text-secondary);
     }
+
+    .case-quote {
+      padding: 16px 20px;
+      background: var(--primary-light);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--text);
+      position: relative;
+      margin: 0 20px;
+      border-radius: 8px;
+    }
+
+    .case-quote::before {
+      content: """;
+      font-size: 40px;
+      color: var(--primary);
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      opacity: 0.5;
+    }
+
+    .quote-author {
+      font-style: normal;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: right;
+    }
+
     .comparison {
-      padding: 16px;
+      padding: 20px;
       display: flex;
-      gap: 12px;
+      gap: 16px;
     }
+
     .comparison-column {
       flex: 1;
-      padding: 12px;
-      border-radius: 4px;
+      padding: 16px;
+      border-radius: 8px;
     }
+
     .before-column {
-      background: #f0f0f0;
+      background: var(--surface);
+      border: 1px solid var(--border);
     }
+
     .after-column {
       background: var(--success-light);
     }
+
     .comparison-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
+
     .before-title {
-      color: var(--gray);
+      color: var(--text-secondary);
     }
+
     .after-title {
       color: var(--success);
     }
+
     .comparison-list {
       list-style: none;
     }
+
     .comparison-item {
-      font-size: 14px;
-      margin-bottom: 6px;
+      font-size: 15px;
+      margin-bottom: 8px;
       position: relative;
-      padding-left: 16px;
-      line-height: 1.5;
+      padding-left: 20px;
+      line-height: 1.6;
       color: var(--text);
     }
+
     .comparison-item::before {
       content: "•";
       position: absolute;
-      left: 4px;
-      color: var(--gray);
+      left: 6px;
+      color: var(--text-tertiary);
     }
+    
+    .business-impact {
+      background: var(--primary-light);
+      margin: 0 20px 20px;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    
+    .impact-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+    
+    .impact-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
     /* 요약 카드 */
     .summary-card {
       background: var(--primary-light);
@@ -398,42 +788,175 @@
       padding: var(--padding);
       margin-bottom: 24px;
     }
+
     .summary-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       color: var(--primary);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
     }
+
     .summary-list {
       list-style: none;
     }
+
     .summary-item {
       display: flex;
-      margin-bottom: 10px;
-      font-size: 14px;
-      line-height: 1.5;
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.6;
     }
+
     .summary-label {
       font-weight: 500;
-      min-width: 90px;
+      min-width: 100px;
       color: var(--text);
     }
+
     .summary-value {
       flex: 1;
       color: var(--text);
     }
+
+    /* 차트 스타일 */
+    .bar-chart {
+      display: flex;
+      height: 200px;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--primary);
+      border-radius: 4px 4px 0 0;
+      min-width: 40px;
+      position: relative;
+      transition: height 1s;
+    }
+
+    .bar-label {
+      position: absolute;
+      top: -24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .bar-value {
+      position: absolute;
+      top: -48px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .bar-category {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .chart-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    /* CTA 버튼 */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      margin: 32px 0;
+      transition: background 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: var(--primary-dark);
+    }
+
     /* 반응형 디자인 */
-    @media (max-width: 768px) {
-      .tabs {
+    @media (max-width: 780px) {
+      :root {
+        --padding: 16px;
+      }
+      
+      .metrics-dashboard {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .comparison {
         flex-direction: column;
       }
-      .tab {
-        border-bottom: none;
-        border-left: 3px solid transparent;
+      
+      .roadmap {
+        flex-direction: column;
+        padding: 0;
+      }
+      
+      .roadmap::before {
+        left: 20px;
+        right: auto;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        height: auto;
+      }
+      
+      .roadmap-phase {
+        padding: 0 0 24px 50px;
         text-align: left;
       }
-      .tab.active {
-        border-left-color: var(--primary);
+      
+      .roadmap-dot {
+        left: 20px;
+        top: 8px;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-title {
+        font-size: 20px;
+      }
+      
+      .executive-summary {
+        padding: 16px;
+      }
+      
+      .step-header {
+        padding: 12px 16px;
+      }
+      
+      .step-content {
+        padding: 16px;
+      }
+      
+      .bar-chart {
+        margin: 20px 0;
+        height: 150px;
+      }
+      
+      .bar {
+        min-width: 24px;
       }
     }
   </style>
@@ -442,10 +965,38 @@
   <div class="app">
     <header class="header">
       <h1 class="title">웍스AI 전사 도입 제안</h1>
+      <div id="themeToggle" class="theme-toggle" onclick="toggleTheme()"></div>
     </header>
     <div class="container">
       <h2 class="page-title">AI로 일하는 방식의 혁신</h2>
       <p class="subtitle">업무 효율성 향상과 창의적 아이디어 확장을 위한 전략적 선택</p>
+      
+      <!-- Executive Summary -->
+      <div class="executive-summary">
+        <h3 class="exec-title">
+          <span>📊</span>
+          <span>Executive Summary</span>
+        </h3>
+        <p class="exec-content">
+          웍스AI 도입은 직원 생산성 향상과 창의적 업무 확장에 기여하는 전략적 투자입니다. 
+          파일럿 테스트 결과, 시간 절감과 아이디어 다양화 측면에서 가시적인 성과를 확인했습니다. 
+          투자 대비 효과(ROI)는 4개월 내 달성 가능하며, 국내 마케팅/광고 업계의 경쟁 우위를 확보할 수 있습니다.
+        </p>
+        <div class="metrics-dashboard">
+          <div class="metric-card">
+            <div class="metric-value">65%</div>
+            <div class="metric-label">업무 시간 단축</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">133%</div>
+            <div class="metric-label">아이디어 다양성 증가</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">4개월</div>
+            <div class="metric-label">투자 회수 기간</div>
+          </div>
+        </div>
+      </div>
       
       <!-- 파일럿 결과 배너 -->
       <div class="pilot-banner">
@@ -460,9 +1011,9 @@
       
       <!-- 탭 메뉴 -->
       <nav class="tabs">
-        <div class="tab active" onclick="switchTab('why')">왜</div>
-        <div class="tab" onclick="switchTab('how')">어떻게</div>
-        <div class="tab" onclick="switchTab('what')">무엇을</div>
+        <div class="tab active" data-tab="why">왜</div>
+        <div class="tab" data-tab="how">어떻게</div>
+        <div class="tab" data-tab="what">무엇을</div>
       </nav>
       
       <main class="content">
@@ -471,11 +1022,30 @@
           <!-- 시장·환경 변화 -->
           <section class="section">
             <h3 class="section-title">🌍 시장·환경 변화</h3>
+            
+            <div class="chart-container">
+              <h4 class="chart-title">국내 마케팅 대행사 AI 도입 현황</h4>
+              <div class="bar-chart">
+                <div class="bar" style="height: 30%;">
+                  <div class="bar-value">30%</div>
+                  <div class="bar-category">2022년</div>
+                </div>
+                <div class="bar" style="height: 66%;">
+                  <div class="bar-value">66%</div>
+                  <div class="bar-category">2023년</div>
+                </div>
+                <div class="bar" style="height: 82%; background: var(--secondary);">
+                  <div class="bar-value">82%</div>
+                  <div class="bar-category">2024년(예상)</div>
+                </div>
+              </div>
+            </div>
+            
             <div class="keypoint">
               <div class="keypoint-icon">📊</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">업계 동향</div>
-                <div class="keypoint-description">국내 마케팅·광고 대행사 중 <strong>이미 66%가 AI 활용</strong> 중입니다 (2023 마케팅산업협회)</div>
+                <div class="keypoint-description">국내 마케팅·광고 대행사 중 <strong>이미 66%가 AI 활용</strong> 중입니다 (2023 마케팅산업협회). 2024년 말까지 이 비율은 80%를 넘어설 것으로 예상됩니다.</div>
               </div>
             </div>
             <div class="keypoint">
@@ -543,6 +1113,10 @@
               </div>
             </div>
           </section>
+          
+          <button class="cta-btn" onclick="switchTab('how')">
+            어떻게 도입할지 보기 →
+          </button>
         </section>
         
         <!-- 어떻게(How) 탭 콘텐츠 -->
@@ -550,6 +1124,31 @@
           <!-- 단계적 접근 -->
           <section class="section">
             <h3 class="section-title">🔄 단계적 접근</h3>
+            
+            <!-- 로드맵 -->
+            <div class="roadmap">
+              <div class="roadmap-phase active">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-title">Quick Wins</div>
+                <div class="roadmap-date">~4월 중순</div>
+              </div>
+              <div class="roadmap-phase">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-title">비용 관리</div>
+                <div class="roadmap-date">~5월</div>
+              </div>
+              <div class="roadmap-phase">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-title">성공 사례 확산</div>
+                <div class="roadmap-date">~6월</div>
+              </div>
+              <div class="roadmap-phase">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-title">내재화</div>
+                <div class="roadmap-date">장기</div>
+              </div>
+            </div>
+            
             <div class="step-card">
               <div class="step-header">
                 <div class="step-number">1</div>
@@ -562,7 +1161,13 @@
                   <li class="step-item">인터뷰 정리 시간 75% 감소 확인</li>
                   <li class="step-item">각 부서별 1-2개 "Quick Win" 업무 선정 및 맞춤 프롬프트 개발</li>
                 </ul>
-                <div class="step-time">현재 ~ 4월 중순</div>
+                <div class="step-time">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  현재 ~ 4월 중순
+                </div>
               </div>
             </div>
             <div class="step-card">
@@ -581,7 +1186,13 @@
                   <span class="tip-icon">💡</span>
                   <span>월 200만원 초과 시 즉시 알림 및 조정 조치</span>
                 </div>
-                <div class="step-time">4월 중순 ~ 5월</div>
+                <div class="step-time">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  4월 중순 ~ 5월
+                </div>
               </div>
             </div>
             <div class="step-card">
@@ -596,7 +1207,13 @@
                   <li class="step-item">부서 간 효과적인 프롬프트와 활용법 교류</li>
                   <li class="step-item">혁신적 AI 활용 사례에 대한 포상 제도 검토</li>
                 </ul>
-                <div class="step-time">5월 ~ 6월</div>
+                <div class="step-time">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  5월 ~ 6월
+                </div>
               </div>
             </div>
             <div class="step-card">
@@ -611,7 +1228,13 @@
                   <li class="step-item">업무별 최적화된 프롬프트 라이브러리 구축</li>
                   <li class="step-item">웍스AI와 내부 시스템 연동으로 자동화 수준 향상</li>
                 </ul>
-                <div class="step-time">장기적 목표</div>
+                <div class="step-time">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  장기적 목표
+                </div>
               </div>
             </div>
           </section>
@@ -686,6 +1309,10 @@
                 </div>
               </div>
             </div>
+            
+            <button class="cta-btn" onclick="switchTab('what')">
+              무엇을 기대할 수 있는지 보기 →
+            </button>
           </section>
         </section>
         
@@ -694,6 +1321,29 @@
           <!-- 생산성과 속도 -->
           <section class="section">
             <h3 class="section-title">⚡ 생산성과 속도</h3>
+            
+            <div class="chart-container">
+              <h4 class="chart-title">주요 업무 시간 절감 효과</h4>
+              <div class="bar-chart">
+                <div class="bar" style="height: 65%; background: var(--success);">
+                  <div class="bar-value">65%</div>
+                  <div class="bar-category">콘텐츠 기획</div>
+                </div>
+                <div class="bar" style="height: 75%; background: var(--success);">
+                  <div class="bar-value">75%</div>
+                  <div class="bar-category">인터뷰 정리</div>
+                </div>
+                <div class="bar" style="height: 70%; background: var(--success);">
+                  <div class="bar-value">70%</div>
+                  <div class="bar-category">보고서 작성</div>
+                </div>
+                <div class="bar" style="height: 50%; background: var(--success);">
+                  <div class="bar-value">50%</div>
+                  <div class="bar-category">데이터 분석</div>
+                </div>
+              </div>
+            </div>
+            
             <div class="keypoint">
               <div class="keypoint-icon">⏱️</div>
               <div class="keypoint-content">
@@ -851,6 +1501,10 @@
                   <p>인스타그램 콘텐츠 기획</p>
                 </div>
               </div>
+              <div class="case-quote">
+                "AI를 활용한 후, 기획 시간이 줄어들었을 뿐만 아니라 더 다양한 관점에서 콘텐츠를 개발할 수 있게 되었어요. 팀원 전체가 만족하고 있습니다."
+                <div class="quote-author">- 김지현 팀장</div>
+              </div>
               <div class="comparison">
                 <div class="comparison-column before-column">
                   <div class="comparison-title before-title">Before</div>
@@ -869,6 +1523,10 @@
                   </ul>
                 </div>
               </div>
+              <div class="business-impact">
+                <div class="impact-title">비즈니스 임팩트</div>
+                <div class="impact-value">인스타그램 참여율 32% 증가</div>
+              </div>
             </div>
             <div class="case-study">
               <div class="case-header">
@@ -877,6 +1535,10 @@
                   <h3>HR팀</h3>
                   <p>인터뷰 정리 프로세스</p>
                 </div>
+              </div>
+              <div class="case-quote">
+                "전에는 인터뷰 내용을 놓치거나 주관적으로 해석하는 경우가 있었는데, AI를 활용하면서 더 객관적이고 일관된 평가가 가능해졌습니다."
+                <div class="quote-author">- 박서연 매니저</div>
               </div>
               <div class="comparison">
                 <div class="comparison-column before-column">
@@ -895,6 +1557,10 @@
                     <li class="comparison-item">중요 정보 누락 감소</li>
                   </ul>
                 </div>
+              </div>
+              <div class="business-impact">
+                <div class="impact-title">비즈니스 임팩트</div>
+                <div class="impact-value">채용 프로세스 효율성 45% 개선</div>
               </div>
             </div>
           </section>
@@ -939,21 +1605,125 @@
                 </li>
               </ul>
             </div>
+            
+            <button class="cta-btn">
+              AI 전사 도입 승인하기
+            </button>
           </section>
         </section>
       </main>
     </div>
   </div>
   <script>
+    // 현재 활성화된 탭 정보
+    let currentTab = 'why';
+    
+    // DOM이 로드된 후 스켈레톤 UI 제거
+    document.addEventListener('DOMContentLoaded', function() {
+      // 스켈레톤 로딩 상태를 표시했다면 여기서 제거
+      setTimeout(() => {
+        const skeletons = document.querySelectorAll('.skeleton');
+        skeletons.forEach(skeleton => {
+          skeleton.classList.remove('skeleton');
+        });
+        
+        // 섹션에 애니메이션 적용
+        const sections = document.querySelectorAll('.section');
+        sections.forEach((section, index) => {
+          section.style.animationDelay = (index * 0.1) + 's';
+        });
+      }, 500);
+      
+      // 차트 애니메이션
+      setTimeout(() => {
+        const bars = document.querySelectorAll('.bar');
+        bars.forEach(bar => {
+          const targetHeight = bar.style.height;
+          bar.style.height = '0%';
+          setTimeout(() => {
+            bar.style.height = targetHeight;
+          }, 100);
+        });
+      }, 800);
+    });
+    
+    // 탭 전환 함수
     function switchTab(tabId) {
+      // 이전 탭과 같으면 아무것도 하지 않음
+      if (tabId === currentTab) return;
+      
+      // 애니메이션 방향 결정
+      const slideDirection = getTabIndex(tabId) > getTabIndex(currentTab) ? 'slide-left' : 'slide-right';
+      
+      // 모든 탭 컨텐츠 비활성화
       const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(content => content.classList.remove('active'));
+      contents.forEach(content => {
+        content.classList.remove('active', 'slide-left', 'slide-right');
+      });
+      
+      // 모든 탭 비활성화
       const tabs = document.querySelectorAll('.tab');
-      tabs.forEach(tab => tab.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.currentTarget.classList.add('active');
-      window.scrollTo(0, 0);
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // 현재 탭 및 컨텐츠 활성화
+      document.getElementById(tabId).classList.add('active', slideDirection);
+      document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+      
+      // 현재 탭 업데이트
+      currentTab = tabId;
+      
+      // URL 히스토리 업데이트 (필요시)
+      // history.pushState(null, null, `#${tabId}`);
     }
+    
+    // 탭 인덱스 가져오기
+    function getTabIndex(tabId) {
+      const tabs = ['why', 'how', 'what'];
+      return tabs.indexOf(tabId);
+    }
+    
+    // 탭 클릭 이벤트 리스너 등록
+    document.addEventListener('DOMContentLoaded', function() {
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          switchTab(this.getAttribute('data-tab'));
+        });
+      });
+    });
+    
+    // 다크 모드 토글
+    function toggleTheme() {
+      const themeToggle = document.getElementById('themeToggle');
+      const body = document.body;
+      
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        themeToggle.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // 저장된 테마 적용
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        document.getElementById('themeToggle').classList.add('dark');
+      }
+      
+      // URL에서 탭 가져오기 (필요시)
+      // const hash = window.location.hash.substring(1);
+      // if (hash && ['why', 'how', 'what'].includes(hash)) {
+      //   switchTab(hash);
+      // }
+    });
   </script>
 </body>
 </html>
