@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>웍스AI 전사 도입 제안</title>
+    
+    <!-- 메타 태그 -->
+    <meta property="og:title" content="웍스AI 전사 도입 제안: 업무 혁신과 생산성 향상">
+    <meta property="og:description" content="업무 효율성과 창의적 아이디어 확장을 위한 AI 도입 제안">
+    
+    <!-- 파비콘 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+    
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 리셋 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary: #4673EB;
+            --primary-light: #F3F4FF;
+            --primary-dark: #3A62D7;
+            --success: #2B8A3E;
+            --success-light: #EDF9F0;
+            --warning: #F08C00;
+            --warning-light: #FFF9DB;
+            --danger: #E03131;
+            --danger-light: #FFF5F5;
+            --gray-100: #F9FAFB;
+            --gray-200: #F2F4F6;
+            --gray-300: #E5E8EC;
+            --gray-400: #DDE2E5;
+            --gray-500: #8B95A1;
+            --gray-600: #4F5864;
+            --gray-700: #191F28;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --transition: all 0.2s ease;
+        }
+        
+        body {
+            background-color: var(--gray-100);
+            color: var(--gray-700);
+            line-height: 1.5;
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
+        /* 메인 컨테이너 */
+        .container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 20px 16px 80px;
+        }
+        
+        /* 헤더 스타일 */
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            color: var(--gray-600);
+            font-size: 16px;
+        }
+        
+        /* 환영 메시지 */
+        .welcome-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .welcome-emoji {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+        }
+        
+        .welcome-message {
+            color: var(--gray-600);
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        /* 핵심 알림 메시지 */
+        .key-notice {
+            background-color: var(--primary-light);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+        
+        .key-notice-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+        }
+        
+        /* 탭 메뉴 */
+        .tabs {
+            display: flex;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background-color: white;
+            border: 1px solid var(--gray-300);
+            margin-bottom: 24px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: var(--shadow);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--gray-500);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            font-weight: 700;
+            background-color: var(--primary-light);
+            box-shadow: inset 0 -2px 0 var(--primary);
+        }
+        
+        /* 탭 콘텐츠 */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 카드 스타일 */
+        .card {
+            background-color: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-300);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .card-title {
+            font-weight: 700;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        /* 정보 아이템 */
+        .info-item {
+            display: flex;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .info-item:first-child {
+            padding-top: 0;
+        }
+        
+        .info-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .info-icon {
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        
+        .info-content {
+            flex: 1;
+        }
+        
+        .info-label {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+        
+        .info-value {
+            color: var(--gray-600);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .benefit-item {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            background-color: var(--gray-100);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .benefit-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--primary-dark);
+        }
+        
+        .benefit-description {
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* 팁 스타일 */
+        .tip {
+            background-color: var(--warning-light);
+            color: var(--warning);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        
+        .tip::before {
+            content: "💡";
+            margin-right: 6px;
+        }
+        
+        /* 성공 사례 */
+        .case-study {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .case-header {
+            padding: 16px 20px;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--gray-300);
+        }
+        
+        .case-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .case-title {
+            flex: 1;
+        }
+        
+        .case-title h3 {
+            font-size: 18px;
+            margin-bottom: 2px;
+            color: var(--primary-dark);
+        }
+        
+        .case-title p {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+        
+        .case-content {
+            padding: 20px;
+        }
+        
+        .case-before-after {
+            display: flex;
+            margin-bottom: 16px;
+            gap: 16px;
+        }
+        
+        .case-column {
+            flex: 1;
+            padding: 12px;
+            background-color: var(--gray-100);
+            border-radius: var(--radius-sm);
+        }
+        
+        .case-column h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .before-title {
+            color: var(--danger);
+        }
+        
+        .after-title {
+            color: var(--success);
+        }
+        
+        .case-column ul {
+            list-style-type: none;
+            padding-left: 6px;
+        }
+        
+        .case-column li {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--gray-600);
+            position: relative;
+            padding-left: 16px;
+        }
+        
+        .case-column li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gray-500);
+        }
+        
+        .case-quote {
+            background-color: var(--primary-light);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            font-style: italic;
+            color: var(--primary-dark);
+            font-size: 14px;
+            position: relative;
+        }
+        
+        /* 버튼 스타일 */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: var(--transition);
+        }
+        
+        .btn:active {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .btn-secondary:active {
+            background-color: #E8EAFF;
+        }
+        
+        /* 체크리스트 스타일 */
+        .implementation-step {
+            background-color: white;
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .step-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 12px;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            flex: 1;
+            line-height: 1.4;
+        }
+        
+        .step-content {
+            padding: 16px;
+        }
+        
+        .step-content p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .step-content ul {
+            list-style-type: none;
+            padding-left: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .step-content li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--gray-600);
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.5;
+        }
+        
+        .step-content li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .timeline {
+            display: flex;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            flex: 1;
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            height: 2px;
+            background-color: var(--gray-300);
+            left: 50%;
+            right: -50%;
+            top: 12px;
+            z-index: 1;
+        }
+        
+        .timeline-marker {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            border: 2px solid var(--primary);
+            z-index: 2;
+            margin-bottom: 6px;
+        }
+        
+        .timeline-label {
+            font-size: 12px;
+            color: var(--gray-600);
+            text-align: center;
+        }
+        
+        /* 섹션 스타일 */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 점선 분리자 */
+        .divider {
+            height: 1px;
+            background-color: var(--gray-300);
+            margin: 32px 0;
+        }
+        
+        /* 강조 메시지 */
+        .highlight-message {
+            background-color: var(--success-light);
+            color: var(--success);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 24px 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* 컬럼 레이아웃 */
+        .columns {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .columns {
+                flex-direction: column;
+            }
+        }
+        
+        /* 다크모드 지원 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-light: rgba(70, 115, 235, 0.2);
+                --gray-100: #121212;
+                --gray-200: #1e1e1e;
+                --gray-300: #2a2a2a;
+                --gray-400: #353535;
+                --gray-600: #b0b0b0;
+                --gray-700: #e0e0e0;
+            }
+            
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            
+            .card, .case-study, .implementation-step, .tabs, .welcome-card {
+                background-color: #1a1a1a;
+                border-color: #2a2a2a;
+            }
+            
+            .case-column, .benefit-item {
+                background-color: #222222;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>웍스AI 전사 도입 제안</h1>
+            <p class="subtitle">업무 혁신과 생산성 향상을 위한 AI 활용 전략</p>
+        </header>
+        
+        <!-- 환영 메시지 -->
+        <div class="welcome-card">
+            <div class="welcome-emoji">🤖</div>
+            <div class="welcome-title">AI로 일하는 방식의 혁신</div>
+            <div class="welcome-message">
+                웍스AI는 단순한 도구가 아닌, 우리 회사의 경쟁력을 한 단계 높이는 전략적 선택입니다.<br>
+                업무 효율성을 높이고, 창의적 아이디어를 확장하며, 직원 만족도를 향상시키는<br>
+                혁신적인 업무 환경을 함께 만들어보세요.
+            </div>
+        </div>
+        
+        <!-- 핵심 알림 메시지 -->
+        <div class="key-notice">
+            <div class="key-notice-title">🔍 파일럿 테스트 결과</div>
+            <div>HRD/Culture팀에서 진행한 파일럿 테스트에서 콘텐츠 기획 시간 65% 단축, 인터뷰 정리 시간 75% 감소 등 가시적인 효과를 확인했습니다.</div>
+        </div>
+        
+        <!-- 탭 메뉴 -->
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('why')">왜(Why)</div>
+            <div class="tab" onclick="openTab('how')">어떻게(How)</div>
+            <div class="tab" onclick="openTab('what')">무엇을(What)</div>
+        </div>
+        
+        <!-- 왜(Why) 탭 -->
+        <div id="why" class="tab-content active">
+            <div class="section-title">🌍 시장·환경 변화</div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="info-item">
+                        <div class="info-icon">📊</div>
+                        <div class="info-content">
+                            <div class="info-label">업계 동향</div>
+                            <div class="info-value">국내 마케팅·광고 대행사 중 <strong>이미 66%가 AI 활용</strong> 중입니다 (2023 마케팅산업협회)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🏆</div>
+                        <div class="info-content">
+                            <div class="info-label">경쟁 상황</div>
+                            <div class="info-value">대형 에이전시들은 AI 투자로 인당 생산성을 크게 높이고 있습니다.<br>지금 시작하지 않으면 따라잡기 어려운 격차가 벌어질 수 있습니다.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">⏰</div>
+                        <div class="info-content">
+                            <div class="info-label">결정적 시점</div>
+                            <div class="info-value">1년 전만 해도 선택이었던 AI는 이제 업계 표준이 되어가고 있습니다. 특히 크리에이티브와 속도가 경쟁력인 우리 업종에서는 더욱 중요합니다.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title">🧬 우리 고유의 성공 DNA</div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="benefit-item">
+                        <div class="benefit-title">우리의 핵심 가치와 일치</div>
+                        <div class="benefit-description">"더 빠르게, 더 다양하게, 더 효율적으로"라는 우리의 핵심 가치는 AI 도입과 완벽하게 일치합니다. AI는 이 가치를 더욱 강화할 것입니다.</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-title">본질에 집중할 수 있는 환경</div>
+                        <div class="benefit-description">AI가 일상적인 반복 업무를 처리하는 동안, 우리는 창의적 사고와 전략적 의사결정에 더 많은 에너지를 쏟을 수 있습니다.</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-title">빠르고 유연한 조직 문화</div>
+                        <div class="benefit-description">우리 특유의 '빠르고 유연한' 문화와 AI는 놀랍도록 시너지가 좋습니다. AI는 우리의 강점을 약화시키는 것이 아니라, 증폭시키는 도구입니다.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title">👥 직원들의 요구</div>
+            
+            <div class="card">
+                <div class="card-content">
+                    <div class="info-item">
+                        <div class="info-icon">🔄</div>
+                        <div class="info-content">
+                            <div class="info-label">의미 있는 일에 집중</div>
+                            <div class="info-value">"반복적인 업무 대신 의미 있는 일에 집중하고 싶습니다" - MZ 세대 직원들의 공통된 요구사항입니다.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🧠</div>
+                        <div class="info-content">
+                            <div class="info-label">성장과 역량 개발</div>
+                            <div class="info-value">최신 기술을 활용한 업무 경험은 직원들의 경력 개발과 역량 강화에 도움이 됩니다.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">🔁</div>
+                        <div class="info-content">
+                            <div class="info-label">혁신 문화 정착</div>
+                            <div class="info-value">우리는 항상 구태의연한 방식에 갇히지 않는 회사였습니다. AI 도입은 이 가치를 실천하는 또 하나의 방법입니다.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 어떻게(How) 탭 -->
+        <div id="how" class="tab-content">
+            <div class="section-title">🔄 단계적 접근</div>
+            
+            <div class="implementation-step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">즉시 효과를 보는 영역부터 (현재~4월 중순)</div>
+                </div>
+                <div class="step-content">
+                    <p>가장 빠르게 효과를 볼 수 있는 업무부터 적용하여 성공 경험을 축적합니다.</p>
+                    <ul>
+                        <li>HRD/Culture팀에서는 콘텐츠 기획 시간 65% 단축 확인</li>
+                        <li>인터뷰 정리 시간 75% 감소 확인</li>
+                        <li>각 부서별 1-2개 "Quick Win" 업무 선정 및 맞춤 프롬프트 개발</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">비용 관리와 활성화의 균형 (4월 중순~5월)</div>
+                </div>
+                <div class="step-content">
+                    <p>효율적인 사용 방법을 공유하고 비용을 효과적으로 관리합니다.</p>
+                    <ul>
+                        <li>개인별 월 1만원 기본 한도 설정 (필요시 조정 가능)</li>
+                        <li>업무별 최적 모델 가이드 제공 (이럴 땐 GPT-4o, 저럴 땐 GPT-4o mini)</li>
+                        <li>사용 현황 대시보드로 실시간 모니터링</li>
+                    </ul>
+                    <div class="tip">월 200만원 초과 시 즉시 알림 및 조정 조치</div>
+                </div>
+            </div>
+            
+            <div class="implementation-step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">성공 사례 공유로 자발적 확산 (5월~6월)</div>
+                </div>
+                <div class="step-content">
+                    <p>성공적인 활용 사례를 공유하여 자발적인 참여를 유도합니다.</p>
+                    <ul>
+                        <li>"이런 식으로 활용했더니 이만큼 효과가 있었다"는 구체적 스토리 공유</li>
+                        <li>부서 간 효과적인 프롬프트와 활용법 교류</li>
+                        <li>혁신적 AI 활용 사례에 대한 포상 제도 검토</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="implementation-step">
+                <div class="step-
