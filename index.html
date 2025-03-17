@@ -32,30 +32,6 @@
       --border-radius: 10px;
       --transition: 0.3s;
       --header-height: 60px;
-      --chart-primary: #3D5AFE;
-      --chart-secondary: #00B171;
-      --chart-tertiary: #FF8000;
-      --chart-quaternary: #F5365C;
-    }
-
-    [data-theme="dark"] {
-      --primary: #4D8DFF;
-      --primary-light: #172B4D;
-      --primary-dark: #6EA8FE;
-      --secondary: #6D83FF;
-      --secondary-light: #21295C;
-      --success: #2DCE89;
-      --success-light: #1A2C3A;
-      --warning: #FB8C00;
-      --warning-light: #2D2718;
-      --danger: #F75676;
-      --danger-light: #2C1A20;
-      --bg: #0A1120;
-      --surface: #111927;
-      --text: #EDF2F7;
-      --text-secondary: #A0AEC0;
-      --text-tertiary: #718096;
-      --border: #2D3748;
     }
 
     * {
@@ -101,33 +77,6 @@
       font-size: 18px;
       font-weight: 700;
       color: var(--text);
-    }
-
-    .theme-toggle {
-      width: 40px;
-      height: 24px;
-      background: var(--surface);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      position: relative;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .theme-toggle::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--primary);
-      transition: all 0.3s;
-    }
-
-    .theme-toggle.dark::after {
-      left: 20px;
     }
 
     /* 페이지 타이틀 및 서브타이틀 */
@@ -291,28 +240,49 @@
       to { transform: translateX(0); opacity: 1; }
     }
 
-    /* 스켈레톤 로딩 */
-    .skeleton {
+    /* 바 그래프 스타일 */
+    .bar-chart {
+      display: flex;
+      height: 200px;
+      align-items: flex-end;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .bar {
+      flex: 1;
+      background: var(--primary);
+      border-radius: 4px 4px 0 0;
+      min-width: 40px;
       position: relative;
-      overflow: hidden;
-      background: var(--surface);
-      border-radius: var(--border-radius);
+      transition: height 1s;
     }
-
-    .skeleton::after {
-      content: "";
+    
+    .bar-value, .bar-category {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      animation: shimmer 1.5s infinite;
+      width: 100%;
+      text-align: center;
+      color: white;
+      text-shadow: 0 0 3px rgba(0,0,0,0.7);
+    }
+    
+    .bar-value {
+      top: -28px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .bar-category {
+      bottom: -24px;
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
+    .chart-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
     /* 섹션 스타일 */
@@ -387,16 +357,6 @@
       font-size: 15px;
       color: var(--text-secondary);
       line-height: 1.6;
-    }
-
-    /* 차트 영역 */
-    .chart-container {
-      height: 240px;
-      margin: 24px 0;
-      background: var(--surface);
-      border-radius: var(--border-radius);
-      padding: 16px;
-      border: 1px solid var(--border);
     }
 
     /* 로드맵 */
@@ -685,16 +645,6 @@
       border-radius: 8px;
     }
 
-    .case-quote::before {
-      content: """;
-      font-size: 40px;
-      color: var(--primary);
-      position: absolute;
-      top: -10px;
-      left: 10px;
-      opacity: 0.5;
-    }
-
     .quote-author {
       font-style: normal;
       font-weight: 600;
@@ -818,59 +768,6 @@
       color: var(--text);
     }
 
-    /* 차트 스타일 */
-    .bar-chart {
-      display: flex;
-      height: 200px;
-      align-items: flex-end;
-      gap: 16px;
-      margin: 24px 0;
-    }
-
-    .bar {
-      flex: 1;
-      background: var(--primary);
-      border-radius: 4px 4px 0 0;
-      min-width: 40px;
-      position: relative;
-      transition: height 1s;
-    }
-
-    .bar-label {
-      position: absolute;
-      top: -24px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .bar-value {
-      position: absolute;
-      top: -48px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .bar-category {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
-    .chart-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
     /* CTA 버튼 */
     .cta-btn {
       display: block;
@@ -886,6 +783,7 @@
       text-align: center;
       margin: 32px 0;
       transition: background 0.3s;
+      text-decoration: none;
     }
 
     .cta-btn:hover {
@@ -965,11 +863,10 @@
   <div class="app">
     <header class="header">
       <h1 class="title">웍스AI 전사 도입 제안</h1>
-      <div id="themeToggle" class="theme-toggle" onclick="toggleTheme()"></div>
     </header>
     <div class="container">
       <h2 class="page-title">AI로 일하는 방식의 혁신</h2>
-      <p class="subtitle">업무 효율성 향상과 창의적 아이디어 확장을 위한 전략적 선택</p>
+      <p class="subtitle">업무 효율성 극대화와 혁신적 아이디어 창출을 위한 전략적 투자</p>
       
       <!-- Executive Summary -->
       <div class="executive-summary">
@@ -978,9 +875,7 @@
           <span>Executive Summary</span>
         </h3>
         <p class="exec-content">
-          웍스AI 도입은 직원 생산성 향상과 창의적 업무 확장에 기여하는 전략적 투자입니다. 
-          파일럿 테스트 결과, 시간 절감과 아이디어 다양화 측면에서 가시적인 성과를 확인했습니다. 
-          투자 대비 효과(ROI)는 4개월 내 달성 가능하며, 국내 마케팅/광고 업계의 경쟁 우위를 확보할 수 있습니다.
+          웍스AI 도입은 단순 비용 절감이 아닌, 전사적인 업무 혁신과 창의력 증진을 이끌어냅니다. ROI는 단 4개월 내 달성되며, 경쟁사 대비 선제적 대응과 효율적인 업무 프로세스로 미래 경쟁력을 확보할 수 있습니다.
         </p>
         <div class="metrics-dashboard">
           <div class="metric-card">
@@ -989,11 +884,11 @@
           </div>
           <div class="metric-card">
             <div class="metric-value">133%</div>
-            <div class="metric-label">아이디어 다양성 증가</div>
+            <div class="metric-label">아이디어 확산</div>
           </div>
           <div class="metric-card">
             <div class="metric-value">4개월</div>
-            <div class="metric-label">투자 회수 기간</div>
+            <div class="metric-label">ROI 달성</div>
           </div>
         </div>
       </div>
@@ -1005,7 +900,7 @@
           <span>파일럿 테스트 결과</span>
         </div>
         <p class="pilot-description">
-          HRD/Culture팀 파일럿에서 콘텐츠 기획 시간 65% 단축, 인터뷰 정리 시간 75% 감소 등 가시적인 효과를 확인했습니다.
+          HRD/Culture팀 파일럿에서 콘텐츠 기획 시간이 65% 단축되고, 인터뷰 정리 시간이 75% 감소하는 등 가시적인 효과를 확인했습니다.
         </p>
       </div>
       
@@ -1027,16 +922,16 @@
               <h4 class="chart-title">국내 마케팅 대행사 AI 도입 현황</h4>
               <div class="bar-chart">
                 <div class="bar" style="height: 30%;">
-                  <div class="bar-value">30%</div>
-                  <div class="bar-category">2023년</div>
+                  <div class="bar-value">이전</div>
+                  <div class="bar-category">30%</div>
                 </div>
                 <div class="bar" style="height: 66%;">
-                  <div class="bar-value">66%</div>
-                  <div class="bar-category">2024년</div>
+                  <div class="bar-value">현재</div>
+                  <div class="bar-category">66%</div>
                 </div>
                 <div class="bar" style="height: 82%; background: var(--secondary);">
-                  <div class="bar-value">82%</div>
-                  <div class="bar-category">2025년(현재)</div>
+                  <div class="bar-value">미래 예상</div>
+                  <div class="bar-category">82%</div>
                 </div>
               </div>
             </div>
@@ -1045,21 +940,21 @@
               <div class="keypoint-icon">📊</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">업계 동향</div>
-                <div class="keypoint-description">국내 마케팅·광고 대행사 중 <strong>이미 66%가 AI 활용</strong> 중입니다 (마케팅산업협회). 현재 이 비율은 80%를 넘어섰으며, 계속 증가하고 있습니다.</div>
+                <div class="keypoint-description">국내 마케팅·광고 대행사 중 이미 66% 이상이 AI를 활용 중이며, 그 수치는 지속적으로 상승하고 있습니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">🏆</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">경쟁 상황</div>
-                <div class="keypoint-description">대형 에이전시들은 AI 투자로 인당 생산성을 크게 높이고 있습니다. 지금 시작하지 않으면 따라잡기 어려운 격차가 벌어질 수 있습니다.</div>
+                <div class="keypoint-description">대형 에이전시들은 AI 투자로 인당 생산성을 크게 향상시키고 있으며, 지금 도입하지 않으면 격차를 좁히기 어려워집니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">⏰</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">결정적 시점</div>
-                <div class="keypoint-description">1년 전만 해도 선택이었던 AI는 이제 업계 표준이 되어가고 있습니다. 특히 크리에이티브와 속도가 경쟁력인 우리 업종에서는 더욱 중요합니다.</div>
+                <div class="keypoint-description">AI는 더 이상 선택이 아닌 필수 도구입니다. 특히, 크리에이티브와 속도가 중요한 우리 업종에서 그 효과는 압도적입니다.</div>
               </div>
             </div>
           </section>
@@ -1069,22 +964,22 @@
             <div class="keypoint">
               <div class="keypoint-icon">🎯</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">우리의 핵심 가치와 일치</div>
-                <div class="keypoint-description">"더 빠르게, 더 다양하게, 더 효율적으로"라는 우리의 핵심 가치는 AI 도입과 완벽하게 일치합니다. AI는 이 가치를 더욱 강화할 것입니다.</div>
+                <div class="keypoint-title">핵심 가치와 일치</div>
+                <div class="keypoint-description">"더 빠르게, 더 다양하게, 더 효율적으로"라는 우리의 핵심 가치가 AI 도입을 통해 극대화됩니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">💡</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">본질에 집중할 수 있는 환경</div>
-                <div class="keypoint-description">AI가 일상적인 반복 업무를 처리하는 동안, 우리는 창의적 사고와 전략적 의사결정에 더 많은 에너지를 쏟을 수 있습니다.</div>
+                <div class="keypoint-title">본질에 집중</div>
+                <div class="keypoint-description">반복 업무는 AI에 맡기고, 전략적 의사결정과 창의적 사고에 에너지를 집중할 수 있습니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">🚀</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">빠르고 유연한 조직 문화</div>
-                <div class="keypoint-description">우리 특유의 '빠르고 유연한' 문화와 AI는 놀랍도록 시너지가 좋습니다. AI는 우리의 강점을 약화시키는 것이 아니라, 증폭시키는 도구입니다.</div>
+                <div class="keypoint-title">유연한 조직 문화</div>
+                <div class="keypoint-description">우리의 빠르고 유연한 문화는 AI 도입과 시너지 효과를 발휘하여 더욱 강화됩니다.</div>
               </div>
             </div>
           </section>
@@ -1095,28 +990,28 @@
               <div class="keypoint-icon">🔄</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">의미 있는 일에 집중</div>
-                <div class="keypoint-description">"반복적인 업무 대신 의미 있는 일에 집중하고 싶습니다" - MZ 세대 직원들의 공통된 요구사항입니다.</div>
+                <div class="keypoint-description">"반복 작업 대신, 본질적인 업무에 집중하고 싶다" - MZ 세대 직원들의 공통된 목소리입니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">🧠</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">성장과 역량 개발</div>
-                <div class="keypoint-description">최신 기술을 활용한 업무 경험은 직원들의 경력 개발과 역량 강화에 도움이 됩니다.</div>
+                <div class="keypoint-description">최신 기술 경험은 직원들의 경력 발전과 디지털 역량 강화를 돕습니다.</div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">🔁</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">혁신 문화 정착</div>
-                <div class="keypoint-description">우리는 항상 구태의연한 방식에 갇히지 않는 회사였습니다. AI 도입은 이 가치를 실천하는 또 하나의 방법입니다.</div>
+                <div class="keypoint-description">우리 회사는 항상 새로운 방식에 도전해왔으며, AI 도입은 그 연장선상입니다.</div>
               </div>
             </div>
-          </section>
           
-          <button class="cta-btn" onclick="switchTab('how')">
-            어떻게 도입할지 보기 →
-          </button>
+            <button class="cta-btn" onclick="switchTab('how')">
+              어떻게 도입할지 보기 →
+            </button>
+          </section>
         </section>
         
         <!-- 어떻게(How) 탭 콘텐츠 -->
@@ -1155,10 +1050,10 @@
                 <div class="step-title">즉시 효과를 보는 영역부터</div>
               </div>
               <div class="step-content">
-                <p class="step-description">가장 빠르게 효과를 볼 수 있는 업무부터 적용하여 성공 경험을 축적합니다.</p>
+                <p class="step-description">가장 빠르게 효과를 볼 수 있는 업무부터 적용해, 성공 경험을 축적합니다.</p>
                 <ul class="step-list">
-                  <li class="step-item">HRD/Culture팀에서는 콘텐츠 기획 시간 65% 단축 확인</li>
-                  <li class="step-item">인터뷰 정리 시간 75% 감소 확인</li>
+                  <li class="step-item">HRD/Culture팀: 콘텐츠 기획 시간 65% 단축</li>
+                  <li class="step-item">인터뷰 정리 시간 75% 감소</li>
                   <li class="step-item">각 부서별 1-2개 "Quick Win" 업무 선정 및 맞춤 프롬프트 개발</li>
                 </ul>
                 <div class="step-time">
@@ -1176,15 +1071,15 @@
                 <div class="step-title">비용 관리와 활성화의 균형</div>
               </div>
               <div class="step-content">
-                <p class="step-description">효율적인 사용 방법을 공유하고 비용을 효과적으로 관리합니다.</p>
+                <p class="step-description">효율적인 사용 방법 공유 및 비용 관리를 통해 안정적인 AI 도입을 지원합니다.</p>
                 <ul class="step-list">
-                  <li class="step-item">개인별 월 1만원 기본 한도 설정 (필요시 조정 가능)</li>
-                  <li class="step-item">업무별 최적 모델 가이드 제공 (이럴 땐 GPT-4o, 저럴 땐 GPT-4o mini)</li>
-                  <li class="step-item">사용 현황 대시보드로 실시간 모니터링</li>
+                  <li class="step-item">개인별 월 1만원 기본 한도 (필요시 조정 가능)</li>
+                  <li class="step-item">업무별 최적 모델 가이드 제공 (예: GPT-4o vs GPT-4o mini)</li>
+                  <li class="step-item">실시간 사용 현황 대시보드</li>
                 </ul>
                 <div class="tip">
                   <span class="tip-icon">💡</span>
-                  <span>월 200만원 초과 시 즉시 알림 및 조정 조치</span>
+                  <span>월 200만원 초과 시 즉시 알림 및 조정</span>
                 </div>
                 <div class="step-time">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1201,11 +1096,11 @@
                 <div class="step-title">성공 사례 공유로 자발적 확산</div>
               </div>
               <div class="step-content">
-                <p class="step-description">성공적인 활용 사례를 공유하여 자발적인 참여를 유도합니다.</p>
+                <p class="step-description">성공 사례를 공유해 자발적 참여를 유도합니다.</p>
                 <ul class="step-list">
-                  <li class="step-item">"이런 식으로 활용했더니 이만큼 효과가 있었다"는 구체적 스토리 공유</li>
-                  <li class="step-item">부서 간 효과적인 프롬프트와 활용법 교류</li>
-                  <li class="step-item">혁신적 AI 활용 사례에 대한 포상 제도 검토</li>
+                  <li class="step-item">구체적 사례 스토리 공유</li>
+                  <li class="step-item">부서 간 프롬프트 및 활용법 교류</li>
+                  <li class="step-item">혁신적 AI 활용 사례 포상 검토</li>
                 </ul>
                 <div class="step-time">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1222,11 +1117,11 @@
                 <div class="step-title">AI 역량의 내재화</div>
               </div>
               <div class="step-content">
-                <p class="step-description">AI 활용 역량을 조직 내에 체계적으로 구축합니다.</p>
+                <p class="step-description">조직 내 AI 활용 역량을 체계적으로 구축합니다.</p>
                 <ul class="step-list">
                   <li class="step-item">부서별 AI 담당자 육성</li>
-                  <li class="step-item">업무별 최적화된 프롬프트 라이브러리 구축</li>
-                  <li class="step-item">웍스AI와 내부 시스템 연동으로 자동화 수준 향상</li>
+                  <li class="step-item">최적 프롬프트 라이브러리 구축</li>
+                  <li class="step-item">웍스AI와 내부 시스템 연동</li>
                 </ul>
                 <div class="step-time">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1274,19 +1169,18 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">비용 관리</div>
                 <div class="keypoint-description">
-                  <strong>우려:</strong> 비용이 통제 불가능하게 늘어나지 않을까?<br>
-                  <strong>대응:</strong> 개인별 월 한도(1만원) 설정 + 대시보드 모니터링 + 모델별 활용 가이드
+                  <strong>우려:</strong> 비용이 통제 불가능하게 증가할 우려<br>
+                  <strong>대응:</strong> 개인별 월 한도 설정, 실시간 모니터링, 모델별 가이드 제공
                 </div>
               </div>
             </div>
-
             <div class="keypoint">
               <div class="keypoint-icon">📉</div>
               <div class="keypoint-content">
                 <div class="keypoint-title">활용도</div>
                 <div class="keypoint-description">
-                  <strong>우려:</strong> 도입해도, 실제로 잘 활용하지 않을 것 같은데?<br>
-                  <strong>대응:</strong> 즉시 효과를 볼 수 있는 업무부터 → 성공 사례 공유 → 자발적 확산
+                  <strong>우려:</strong> 도입 후 활용도가 낮을 수 있음<br>
+                  <strong>대응:</strong> 즉시 효과를 볼 수 있는 업무부터 적용, 성공 사례 공유 및 확산
                 </div>
               </div>
             </div>
@@ -1295,8 +1189,8 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">창의성 저하</div>
                 <div class="keypoint-description">
-                  <strong>우려:</strong> AI에 의존하면 우리의 창의력이 떨어지지 않을까?<br>
-                  <strong>대응:</strong> AI는 "조수"의 역할, 최종 판단과 창의적 방향성은 여전히 사람의 영역
+                  <strong>우려:</strong> AI 의존 시 창의력 저하 우려<br>
+                  <strong>대응:</strong> AI는 보조 도구로 활용, 최종 판단과 창의적 결정은 사람의 몫
                 </div>
               </div>
             </div>
@@ -1317,20 +1211,20 @@
               <h4 class="chart-title">주요 업무 시간 절감 효과</h4>
               <div class="bar-chart">
                 <div class="bar" style="height: 65%; background: var(--success);">
-                  <div class="bar-value" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">65%</div>
-                  <div class="bar-category" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">콘텐츠 기획</div>
+                  <div class="bar-value">65%</div>
+                  <div class="bar-category">콘텐츠 기획</div>
                 </div>
                 <div class="bar" style="height: 75%; background: var(--success);">
-                  <div class="bar-value" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">75%</div>
-                  <div class="bar-category" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">인터뷰 정리</div>
+                  <div class="bar-value">75%</div>
+                  <div class="bar-category">인터뷰 정리</div>
                 </div>
                 <div class="bar" style="height: 70%; background: var(--success);">
-                  <div class="bar-value" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">70%</div>
-                  <div class="bar-category" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">보고서 작성</div>
+                  <div class="bar-value">70%</div>
+                  <div class="bar-category">보고서 작성</div>
                 </div>
                 <div class="bar" style="height: 50%; background: var(--success);">
-                  <div class="bar-value" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">50%</div>
-                  <div class="bar-category" style="color: white; text-shadow: 0 0 3px rgba(0,0,0,0.7);">데이터 분석</div>
+                  <div class="bar-value">50%</div>
+                  <div class="bar-category">데이터 분석</div>
                 </div>
               </div>
             </div>
@@ -1340,20 +1234,20 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">의사결정 속도</div>
                 <div class="keypoint-description">
-                  데이터 분석과 인사이트 도출이 빨라져 시장 대응력 강화<br>
-                  <strong>예시:</strong> 경쟁사 신규 캠페인 분석에 이전엔 2-3일 걸렸지만, AI로 반나절 만에 핵심 인사이트 도출 가능<br>
-                  <strong>예시:</strong> 주간 마케팅 성과 분석을 2시간에서 20분으로 단축, 빠른 전략 수정 가능
+                  데이터 분석과 인사이트 도출 속도 향상으로 시장 대응력이 강화됩니다.<br>
+                  <strong>예시:</strong> 경쟁사 캠페인 분석 2~3일 → AI 활용 시 반나절 내 도출<br>
+                  <strong>예시:</strong> 주간 성과 분석 시간 2시간 → 20분으로 단축
                 </div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">📈</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">업무 처리량</div>
+                <div class="keypoint-title">업무 처리량 증가</div>
                 <div class="keypoint-description">
-                  단순 업무 시간 단축으로 핵심 업무에 집중 가능<br>
-                  <strong>예시:</strong> 월간 보고서 작성 시간이 평균 5시간에서 1.5시간으로 줄어, 전략적 고민에 더 집중<br>
-                  <strong>예시:</strong> 미팅 준비 자료 작성을 매번 1시간씩 하던 것을 15분으로 단축
+                  단순 업무 자동화로 핵심 업무에 더 많은 에너지 투자 가능<br>
+                  <strong>예시:</strong> 보고서 작성 시간 5시간 → 1.5시간으로 감소<br>
+                  <strong>예시:</strong> 미팅 자료 준비 시간 1시간 → 15분 단축
                 </div>
               </div>
             </div>
@@ -1362,9 +1256,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">오류 감소</div>
                 <div class="keypoint-description">
-                  표준화된 프로세스로 휴먼 에러 최소화<br>
-                  <strong>예시:</strong> 이메일 오타, 데이터 입력 오류 등이 AI 검토로 70% 감소<br>
-                  <strong>예시:</strong> 제안서 포맷 일관성 유지로 클라이언트 신뢰도 향상
+                  표준화된 프로세스로 휴먼 에러를 크게 줄입니다.<br>
+                  <strong>예시:</strong> 이메일 오타, 데이터 입력 오류 70% 감소<br>
+                  <strong>예시:</strong> 제안서 포맷 일관성 유지로 고객 신뢰도 향상
                 </div>
               </div>
             </div>
@@ -1377,9 +1271,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">아이디어 다양화</div>
                 <div class="keypoint-description">
-                  AI는 우리가 미처 생각하지 못한 관점을 제시합니다<br>
-                  <strong>예시:</strong> 신규 캠페인 기획 시 기존에는 2-3개 방향을 검토했으나, AI 활용 후 6-8개의 차별화된 접근법 발굴<br>
-                  <strong>예시:</strong> "모비데이즈 인스타그램 캠페인에 MZ 세대를 위한 새 아이디어가 필요해"라는 간단한 프롬프트로 즉시 다양한 콘셉트 확보
+                  AI는 새로운 관점을 제시해 창의적 아이디어를 확산시킵니다.<br>
+                  <strong>예시:</strong> 캠페인 기획 아이디어 2~3개 → 6~8개로 확대<br>
+                  <strong>예시:</strong> 간단 프롬프트로 다양한 콘셉트 확보
                 </div>
               </div>
             </div>
@@ -1388,9 +1282,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">시장 인사이트</div>
                 <div class="keypoint-description">
-                  방대한 정보를 빠르게 분석해 의미 있는 패턴 발견<br>
-                  <strong>예시:</strong> 경쟁사 10개 소셜미디어 콘텐츠 트렌드를 AI로 한번에 분석해 새로운 기회 포착<br>
-                  <strong>예시:</strong> 국내외 마케팅 사례 100개를 빠르게 분석하여 우리 전략에 적용 가능한 방향성 도출
+                  방대한 데이터를 빠르게 분석해 의미 있는 패턴을 도출합니다.<br>
+                  <strong>예시:</strong> 10개 소셜미디어 콘텐츠 트렌드 분석으로 새로운 기회 포착<br>
+                  <strong>예시:</strong> 국내외 마케팅 사례 100개 분석으로 전략 방향 도출
                 </div>
               </div>
             </div>
@@ -1399,9 +1293,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">고객 니즈 파악</div>
                 <div class="keypoint-description">
-                  고객 데이터를 더 깊이 이해하고 예측할 수 있습니다<br>
-                  <strong>예시:</strong> 고객 피드백 수백 건을 AI로 빠르게 분석해 핵심 개선 요구사항 파악<br>
-                  <strong>예시:</strong> 클라이언트 산업의 최신 트렌드를 실시간으로 분석하여 선제적 제안 가능
+                  고객 피드백과 데이터를 깊이 분석해 개선점을 도출합니다.<br>
+                  <strong>예시:</strong> 수백 건의 피드백 분석을 통한 핵심 개선 요구사항 파악<br>
+                  <strong>예시:</strong> 최신 트렌드 실시간 분석으로 선제적 제안 가능
                 </div>
               </div>
             </div>
@@ -1412,22 +1306,21 @@
             <div class="keypoint">
               <div class="keypoint-icon">🏆</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">업무 만족도</div>
+                <div class="keypoint-title">업무 만족도 향상</div>
                 <div class="keypoint-description">
-                  "지루한 작업은 AI에게, 가치 있는 일은 사람에게"<br>
-                  <strong>예시:</strong> 단순 데이터 정리 작업이 80% 줄어 직원들의 업무 스트레스 감소<br>
-                  <strong>예시:</strong> 반복적인 문서 작성 대신 창의적인 기획에 집중할 수 있는 환경 조성
+                  반복 작업은 AI에게 맡기고, 창의적인 업무에 집중할 수 있습니다.<br>
+                  <strong>예시:</strong> 단순 작업 80% 감소로 업무 스트레스 경감<br>
+                  <strong>예시:</strong> 창의적 기획에 집중할 수 있는 환경 조성
                 </div>
               </div>
             </div>
             <div class="keypoint">
               <div class="keypoint-icon">📚</div>
               <div class="keypoint-content">
-                <div class="keypoint-title">성장 기회</div>
+                <div class="keypoint-title">성장 기회 제공</div>
                 <div class="keypoint-description">
-                  새로운 기술을 익히고 활용하며 개인 역량 강화<br>
-                  <strong>예시:</strong> AI 활용 능력이 향상되어 직원들의 디지털 역량이 전반적으로 상승<br>
-                  <strong>예시:</strong> 루틴 업무 감소로 새로운 분야 학습과 역량 개발에 시간 투자 가능
+                  AI 활용 능력 향상은 직원들의 디지털 역량 강화와 경력 발전에 기여합니다.<br>
+                  <strong>예시:</strong> 루틴 업무 감소로 새로운 분야 학습 가능
                 </div>
               </div>
             </div>
@@ -1436,9 +1329,8 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">협업 강화</div>
                 <div class="keypoint-description">
-                  팀원들이 단순 작업보다 전략적 논의에 더 많은 시간 투자<br>
-                  <strong>예시:</strong> 주간 회의에서 결과 보고 비중은 줄고, 전략 논의 시간이 50% 증가<br>
-                  <strong>예시:</strong> 부서 간 협업 프로젝트에서 문서 작업보다 실질적인 아이디어 교환에 집중
+                  팀원들이 전략적 논의에 더 많은 시간을 투자할 수 있도록 지원합니다.<br>
+                  <strong>예시:</strong> 회의 시 결과 보고 비중 감소, 전략 논의 시간 50% 증가
                 </div>
               </div>
             </div>
@@ -1451,9 +1343,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">시간 절감</div>
                 <div class="keypoint-description">
-                  직원당 월 평균 12시간 이상 절약 (파일럿 실측 데이터 기준)<br>
-                  <strong>예시:</strong> 주 3시간(월 12시간) 절감 × 시간당 인건비 15,000원 = 월 18만원/인 가치<br>
-                  <strong>예시:</strong> 180명 × 월 12시간 = 월 2,160시간(약 270일) 업무시간 확보 효과
+                  직원당 월 평균 12시간 이상 절약 (파일럿 데이터 기준)<br>
+                  <strong>예시:</strong> 주 3시간 절감 × 인건비 15,000원 = 월 18만원/인<br>
+                  <strong>예시:</strong> 180명 × 12시간 = 약 270일 업무시간 확보
                 </div>
               </div>
             </div>
@@ -1462,9 +1354,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">투자 회수</div>
                 <div class="keypoint-description">
-                  적정 사용량 관리 시 약 4개월 내 투자 회수 가능<br>
-                  <strong>예시:</strong> 월 투자 200만원 vs 시간 가치 환산 3,240만원 = 월 3,040만원 순이익<br>
-                  <strong>예시:</strong> 초기 3개월 투자(600만원) → 4개월차부터 월 3,040만원 수준 순이익
+                  적정 사용량 관리 시 약 4개월 내 ROI 달성<br>
+                  <strong>예시:</strong> 월 투자 200만원 대비 순이익 극대화 효과<br>
+                  <strong>예시:</strong> 초기 투자 후 빠른 비용 회수
                 </div>
               </div>
             </div>
@@ -1473,9 +1365,9 @@
               <div class="keypoint-content">
                 <div class="keypoint-title">비용 구조</div>
                 <div class="keypoint-description">
-                  인당 월 평균 1.5~2만원 수준으로 관리 가능<br>
-                  <strong>예시:</strong> GPT-4o mini(저비용 모델) 70% + GPT-4o(고성능 모델) 30% 활용 시 평균 1.1만원/인<br>
-                  <strong>예시:</strong> 사용량 모니터링 대시보드로 실시간 관리 → 예산 초과 사전 방지
+                  인당 월 평균 1.5~2만원 수준으로 비용 효율적으로 관리 가능<br>
+                  <strong>예시:</strong> 저비용 모델 70% + 고성능 모델 30% 활용 시 평균 1.1만원/인<br>
+                  <strong>예시:</strong> 실시간 대시보드로 예산 초과 사전 방지
                 </div>
               </div>
             </div>
@@ -1493,7 +1385,7 @@
                 </div>
               </div>
               <div class="case-quote">
-                "AI를 활용한 후, 기획 시간이 줄어들었을 뿐만 아니라 더 다양한 관점에서 콘텐츠를 개발할 수 있게 되었어요. 팀원 전체가 만족하고 있습니다."
+                "AI 도입 후 기획 시간이 대폭 줄었을 뿐 아니라, 다양한 관점의 콘텐츠 개발이 가능해졌습니다. 팀 전체가 큰 만족을 보이고 있습니다."
                 <div class="quote-author">- 송유림 매니저</div>
               </div>
               <div class="comparison">
@@ -1502,21 +1394,21 @@
                   <ul class="comparison-list">
                     <li class="comparison-item">아이디어 구상: 5시간</li>
                     <li class="comparison-item">초안 작성: 3시간</li>
-                    <li class="comparison-item">아이디어 다양성: 2-3개</li>
+                    <li class="comparison-item">아이디어 다양성: 2~3개</li>
                   </ul>
                 </div>
                 <div class="comparison-column after-column">
                   <div class="comparison-title after-title">After</div>
                   <ul class="comparison-list">
                     <li class="comparison-item">총 소요 시간: 3시간 (▼62.5%)</li>
-                    <li class="comparison-item">아이디어 다양성: 5-7개 (▲133%)</li>
+                    <li class="comparison-item">아이디어 다양성: 5~7개 (▲133%)</li>
                     <li class="comparison-item">콘텐츠 품질: 크게 향상</li>
                   </ul>
                 </div>
               </div>
               <div class="business-impact">
                 <div class="impact-title">비즈니스 임팩트</div>
-                <div class="impact-value">아직 측정중 (인스타그램 참여율)</div>
+                <div class="impact-value">인스타그램 참여율 극대화 효과 (추후 측정)</div>
               </div>
             </div>
             <div class="case-study">
@@ -1528,7 +1420,7 @@
                 </div>
               </div>
               <div class="case-quote">
-                "전에는 인터뷰 내용을 놓치거나 주관적으로 해석하는 경우가 있었는데, AI를 활용하면서 더 객관적이고 일관된 평가가 가능해졌습니다."
+                "전에는 인터뷰 내용을 놓치거나 주관적으로 해석하는 경우가 많았으나, AI 도입 후 객관적 평가가 가능해졌습니다."
                 <div class="quote-author">- 김한슬 매니저</div>
               </div>
               <div class="comparison">
@@ -1563,19 +1455,19 @@
               <ul class="summary-list">
                 <li class="summary-item">
                   <div class="summary-label">초기 비용</div>
-                  <div class="summary-value">셋업비 30만원</div>
+                  <div class="summary-value">셋업비 30만원 (초기 구축 비용 최적화)</div>
                 </li>
                 <li class="summary-item">
                   <div class="summary-label">월 예상 비용</div>
-                  <div class="summary-value">200만원 이내 (조정 가능)</div>
+                  <div class="summary-value">최대 200만원 내외 (효율적 사용 시 추가 절감 가능)</div>
                 </li>
                 <li class="summary-item">
                   <div class="summary-label">관리 방식</div>
-                  <div class="summary-value">월 한도 설정 및 실시간 모니터링</div>
+                  <div class="summary-value">월 한도 설정 및 실시간 대시보드 모니터링</div>
                 </li>
                 <li class="summary-item">
-                  <div class="summary-label">투자 회수</div>
-                  <div class="summary-value">약 4개월 이내 기대</div>
+                  <div class="summary-label">ROI</div>
+                  <div class="summary-value">약 4개월 내 비용 회수 기대</div>
                 </li>
               </ul>
             </div>
@@ -1583,16 +1475,16 @@
               <div class="summary-title">첫 성과 (Quick Wins)</div>
               <ul class="summary-list">
                 <li class="summary-item">
-                  <div class="summary-label">첫 1개월</div>
+                  <div class="summary-label">1개월</div>
                   <div class="summary-value">콘텐츠 제작 및 자료 분석 시간 40% 이상 단축</div>
                 </li>
                 <li class="summary-item">
-                  <div class="summary-label">첫 3개월</div>
-                  <div class="summary-value">부서별 최소 1개 이상의 성공 사례 확보</div>
+                  <div class="summary-label">3개월</div>
+                  <div class="summary-value">부서별 최소 1건 이상의 성공 사례 확보</div>
                 </li>
                 <li class="summary-item">
-                  <div class="summary-label">첫 6개월</div>
-                  <div class="summary-value">전사 업무 프로세스의 가시적 개선 및 직원 만족도 향상</div>
+                  <div class="summary-label">6개월</div>
+                  <div class="summary-value">전사 업무 프로세스 개선 및 직원 만족도 대폭 향상</div>
                 </li>
               </ul>
             </div>
@@ -1609,70 +1501,35 @@
     // 현재 활성화된 탭 정보
     let currentTab = 'why';
     
-    // DOM이 로드된 후 스켈레톤 UI 제거
-    document.addEventListener('DOMContentLoaded', function() {
-      // 스켈레톤 로딩 상태를 표시했다면 여기서 제거
-      setTimeout(() => {
-        const skeletons = document.querySelectorAll('.skeleton');
-        skeletons.forEach(skeleton => {
-          skeleton.classList.remove('skeleton');
-        });
-        
-        // 섹션에 애니메이션 적용
-        const sections = document.querySelectorAll('.section');
-        sections.forEach((section, index) => {
-          section.style.animationDelay = (index * 0.1) + 's';
-        });
-      }, 500);
-      
-      // 차트 애니메이션
-      setTimeout(() => {
-        const bars = document.querySelectorAll('.bar');
-        bars.forEach(bar => {
-          const targetHeight = bar.style.height;
-          bar.style.height = '0%';
-          setTimeout(() => {
-            bar.style.height = targetHeight;
-          }, 100);
-        });
-      }, 800);
-    });
-    
-    // 탭 전환 함수
+    // 탭 전환 함수 - 해당 탭의 최상단(헤더 아래)으로 부드럽게 스크롤
     function switchTab(tabId) {
-      // 이전 탭과 같으면 아무것도 하지 않음
       if (tabId === currentTab) return;
       
-      // 애니메이션 방향 결정
       const slideDirection = getTabIndex(tabId) > getTabIndex(currentTab) ? 'slide-left' : 'slide-right';
       
-      // 모든 탭 컨텐츠 비활성화
       const contents = document.querySelectorAll('.tab-content');
       contents.forEach(content => {
         content.classList.remove('active', 'slide-left', 'slide-right');
       });
       
-      // 모든 탭 비활성화
       const tabs = document.querySelectorAll('.tab');
       tabs.forEach(tab => {
         tab.classList.remove('active');
       });
       
-      // 현재 탭 및 컨텐츠 활성화
       document.getElementById(tabId).classList.add('active', slideDirection);
       document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
       
-      // 탭 컨텐츠의 상단으로 스크롤 이동
+      // 스크롤 위치를 해당 탭 콘텐츠 최상단으로 이동 (헤더 높이만큼 오프셋 조정)
       setTimeout(() => {
-        const tabsOffset = document.querySelector('.tabs').getBoundingClientRect().top + window.scrollY + 
-                           document.querySelector('.tabs').getBoundingClientRect().height;
+        const target = document.getElementById(tabId);
+        const headerHeight = document.querySelector('.header').offsetHeight;
         window.scrollTo({
-          top: tabsOffset,
+          top: target.offsetTop - headerHeight,
           behavior: 'smooth'
         });
       }, 100);
       
-      // 현재 탭 업데이트
       currentTab = tabId;
     }
     
@@ -1690,37 +1547,6 @@
           switchTab(this.getAttribute('data-tab'));
         });
       });
-    });
-    
-    // 다크 모드 토글
-    function toggleTheme() {
-      const themeToggle = document.getElementById('themeToggle');
-      const body = document.body;
-      
-      if (body.getAttribute('data-theme') === 'dark') {
-        body.removeAttribute('data-theme');
-        themeToggle.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      } else {
-        body.setAttribute('data-theme', 'dark');
-        themeToggle.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    }
-    
-    // 저장된 테마 적용
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
-        document.getElementById('themeToggle').classList.add('dark');
-      }
-      
-      // URL에서 탭 가져오기 (필요시)
-      // const hash = window.location.hash.substring(1);
-      // if (hash && ['why', 'how', 'what'].includes(hash)) {
-      //   switchTab(hash);
-      // }
     });
   </script>
 </body>
