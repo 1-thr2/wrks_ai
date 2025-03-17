@@ -47,35 +47,35 @@
       overflow-x: hidden;
     }
     .container {
-      max-width: 960px; /* PC 환경에 맞게 너비 증가 */
+      max-width: 960px;
       margin: 0 auto;
-      padding: 30px 40px 80px; /* PC에 맞게 여백 증가 */
+      padding: 30px 40px 80px;
     }
     header {
       text-align: center;
-      margin-bottom: 30px; /* 여백 증가 */
+      margin-bottom: 30px;
     }
     h1 {
-      font-size: 28px; /* PC에 맞게 폰트 크기 증가 */
+      font-size: 28px;
       font-weight: 700;
       margin-bottom: 8px;
     }
     .subtitle {
       color: var(--gray-500);
-      font-size: 16px; /* 폰트 크기 증가 */
+      font-size: 16px;
     }
     /* Executive Summary */
     .executive-summary {
       background-color: var(--primary-light);
       border-radius: var(--radius);
-      padding: 30px; /* 여백 증가 */
+      padding: 30px;
       margin-bottom: 30px;
       text-align: center;
       box-shadow: var(--shadow);
       border: 1px solid var(--gray-300);
     }
     .exec-title {
-      font-size: 22px; /* 폰트 크기 증가 */
+      font-size: 22px;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 20px;
@@ -85,11 +85,11 @@
       justify-content: center;
     }
     .exec-content {
-      font-size: 16px; /* 폰트 크기 증가 */
+      font-size: 16px;
       color: var(--gray-700);
       margin-bottom: 24px;
       line-height: 1.6;
-      max-width: 800px; /* 너비 제한 */
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -105,13 +105,13 @@
     .metric-card {
       background-color: white;
       border-radius: 8px;
-      padding: 24px; /* 여백 증가 */
+      padding: 24px;
       text-align: center;
       box-shadow: var(--shadow);
       border: 1px solid var(--gray-300);
     }
     .metric-value {
-      font-size: 32px; /* 폰트 크기 증가 */
+      font-size: 32px;
       font-weight: 700;
       color: var(--primary);
       margin-bottom: 8px;
@@ -124,13 +124,13 @@
     .pilot-banner {
       background-color: var(--success-light);
       border-radius: var(--radius);
-      padding: 24px; /* 여백 증가 */
+      padding: 24px;
       margin: 0 0 30px;
       box-shadow: var(--shadow);
       border: 1px solid var(--gray-300);
     }
     .pilot-title {
-      font-size: 20px; /* 폰트 크기 증가 */
+      font-size: 20px;
       font-weight: 600;
       color: var(--success);
       margin-bottom: 12px;
@@ -163,7 +163,7 @@
       flex: 1;
       text-align: center;
       padding: 16px 0;
-      font-size: 18px; /* 폰트 크기 증가 */
+      font-size: 18px;
       font-weight: 500;
       color: var(--gray-500);
       cursor: pointer;
@@ -200,9 +200,9 @@
     }
     .bar-chart {
       display: flex;
-      height: 280px; /* 높이 증가 */
+      height: 280px;
       align-items: flex-end;
-      gap: 40px; /* 간격 증가 */
+      gap: 40px;
       max-width: 800px;
       margin: 0 auto;
     }
@@ -222,7 +222,7 @@
     }
     .bar-value {
       top: -30px;
-      font-size: 20px; /* 폰트 크기 증가 */
+      font-size: 20px;
       font-weight: 700;
     }
     .bar-category {
@@ -232,7 +232,7 @@
     }
     /* 섹션 스타일 */
     .section {
-      margin-bottom: 50px; /* 여백 증가 */
+      margin-bottom: 50px;
       animation: fadeUp 0.5s;
       animation-fill-mode: both;
     }
@@ -241,7 +241,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .section-title {
-      font-size: 24px; /* 폰트 크기 증가 */
+      font-size: 24px;
       font-weight: 700;
       margin-bottom: 24px;
       color: var(--gray-700);
@@ -265,7 +265,7 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
     }
     .keypoint-icon {
-      width: 56px; /* 크기 증가 */
+      width: 56px;
       height: 56px;
       border-radius: var(--radius);
       background-color: var(--primary-light);
@@ -273,7 +273,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px; /* 폰트 크기 증가 */
+      font-size: 24px;
       margin-right: 20px;
       flex-shrink: 0;
     }
@@ -684,13 +684,13 @@
     
     <!-- 탭 메뉴 -->
     <div class="tabs">
-      <div class="tab active" data-tab="why" onclick="switchTab('why')">왜</div>
-      <div class="tab" data-tab="how" onclick="switchTab('how')">어떻게</div>
-      <div class="tab" data-tab="what" onclick="switchTab('what')">무엇을</div>
+      <div class="tab active" data-tab="why" onclick="switchTab('why')">Why</div>
+      <div class="tab" data-tab="how" onclick="switchTab('how')">How</div>
+      <div class="tab" data-tab="what" onclick="switchTab('what')">What</div>
     </div>
     
     <main class="content">
-      <!-- 왜(Why) 탭 콘텐츠 -->
+      <!-- Why 탭 콘텐츠 -->
       <section id="why" class="tab-content active">
         <!-- 시장·환경 변화 -->
         <section class="section">
@@ -789,7 +789,7 @@
         </section>
       </section>
       
-      <!-- 어떻게(How) 탭 콘텐츠 -->
+      <!-- How 탭 콘텐츠 -->
       <section id="how" class="tab-content">
         <section class="section">
           <h3 class="section-title">🔄 단계적 접근</h3>
@@ -980,7 +980,7 @@
         </section>
       </section>
       
-      <!-- 무엇을(What) 탭 콘텐츠 -->
+      <!-- What 탭 콘텐츠 -->
       <section id="what" class="tab-content">
         <!-- 생산성과 속도 -->
         <section class="section">
@@ -1285,10 +1285,10 @@
       document.getElementById(tabId).classList.add('active');
       document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
       
-      // 탭 헤더로 스크롤
-      const tabsTop = document.querySelector('.tabs').offsetTop;
+      // 선택한 탭 콘텐츠의 시작 부분으로 스크롤
+      const targetTop = document.getElementById(tabId).offsetTop;
       window.scrollTo({
-        top: tabsTop - 20,
+        top: targetTop,
         behavior: 'smooth'
       });
       
@@ -1297,14 +1297,13 @@
       localStorage.setItem('activeTab', tabId);
     }
     
-    // 페이지 로드 시 탭 상태 복원
+    // 페이지 로드 시 탭 상태 복원 및 애니메이션 적용
     document.addEventListener('DOMContentLoaded', function() {
       const savedTab = localStorage.getItem('activeTab');
       if (savedTab) {
         switchTab(savedTab);
       }
       
-      // 애니메이션 적용
       const sections = document.querySelectorAll('.section');
       sections.forEach((section, index) => {
         section.style.animationDelay = (index * 0.1) + 's';
