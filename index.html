@@ -604,6 +604,12 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 16px rgba(70, 115, 235, 0.2);
     }
+    /* 이 코드에서 사용되지 않는 스타일이지만 이후에 필요할 수 있어 유지 */
+    .divider {
+      height: 1px;
+      background: var(--gray-300);
+      margin: 30px 0;
+    }
     /* 반응형 */
     @media (max-width: 960px) {
       .container {
@@ -684,13 +690,13 @@
     
     <!-- 탭 메뉴 -->
     <div class="tabs">
-      <div class="tab active" data-tab="why" onclick="switchTab('why')">Why</div>
-      <div class="tab" data-tab="how" onclick="switchTab('how')">How</div>
-      <div class="tab" data-tab="what" onclick="switchTab('what')">What</div>
+      <div class="tab active" data-tab="why" onclick="switchTab('why')">왜</div>
+      <div class="tab" data-tab="how" onclick="switchTab('how')">어떻게</div>
+      <div class="tab" data-tab="what" onclick="switchTab('what')">무엇을</div>
     </div>
     
     <main class="content">
-      <!-- Why 탭 콘텐츠 -->
+      <!-- 왜(Why) 탭 콘텐츠 -->
       <section id="why" class="tab-content active">
         <!-- 시장·환경 변화 -->
         <section class="section">
@@ -789,7 +795,7 @@
         </section>
       </section>
       
-      <!-- How 탭 콘텐츠 -->
+      <!-- 어떻게(How) 탭 콘텐츠 -->
       <section id="how" class="tab-content">
         <section class="section">
           <h3 class="section-title">🔄 단계적 접근</h3>
@@ -980,7 +986,7 @@
         </section>
       </section>
       
-      <!-- What 탭 콘텐츠 -->
+      <!-- 무엇을(What) 탭 콘텐츠 -->
       <section id="what" class="tab-content">
         <!-- 생산성과 속도 -->
         <section class="section">
@@ -1145,7 +1151,6 @@
               </div>
             </div>
           </div>
-          <div class="divider"></div>
           <!-- 성공 사례 -->
           <section class="section">
             <h3 class="section-title">✨ 성공 사례</h3>
@@ -1271,6 +1276,7 @@
   <script>
     // 현재 활성화된 탭 정보
     let currentTab = 'why';
+    
     // 탭 전환 함수 
     function switchTab(tabId) {
       if (tabId === currentTab) return;
@@ -1282,31 +1288,44 @@
       document.querySelectorAll('.tab').forEach(tab => {
         tab.classList.remove('active');
       });
+      
+      // 새 탭 활성화
       document.getElementById(tabId).classList.add('active');
       document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
       
-      // 선택한 탭 콘텐츠의 시작 부분으로 스크롤
-      const targetTop = document.getElementById(tabId).offsetTop;
+      // 탭 메뉴의 위치로 스크롤
+      const tabsTop = document.querySelector('.tabs').offsetTop;
       window.scrollTo({
-        top: targetTop,
+        top: tabsTop - 20,
         behavior: 'smooth'
       });
       
-      // 현재 탭 업데이트 및 로컬 스토리지에 저장
+      // 현재 탭 업데이트
       currentTab = tabId;
+      
+      // 탭 상태 저장 (선택적)
       localStorage.setItem('activeTab', tabId);
     }
     
-    // 페이지 로드 시 탭 상태 복원 및 애니메이션 적용
+    // 페이지 로드 시 실행
     document.addEventListener('DOMContentLoaded', function() {
+      // 저장된 탭 상태 복원 (선택적)
       const savedTab = localStorage.getItem('activeTab');
-      if (savedTab) {
+      if (savedTab && ['why', 'how', 'what'].includes(savedTab)) {
         switchTab(savedTab);
       }
       
+      // 섹션 애니메이션 딜레이 설정
       const sections = document.querySelectorAll('.section');
       sections.forEach((section, index) => {
         section.style.animationDelay = (index * 0.1) + 's';
+      });
+      
+      // 모든 탭에 이벤트 리스너 추가 (중복 방지)
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          switchTab(this.getAttribute('data-tab'));
+        });
       });
     });
   </script>
